@@ -2,38 +2,18 @@
 	pageEncoding="UTF-8"%>
 
 <%@ page import="java.sql.*"%>
-<%
-	Connection dbConn;
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <!-- 여기에서 시작하는 명령어를 c로 시작해서 쓰겠다. -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 
-	String oracleDriver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	String user = "mybts";
-	String password = "1234";
+<sql:setDataSource var="addrDataSource"
+	driver="oracle.jdbc.driver.OracleDriver"
+	url="jdbc:oracle:thin:@localhost:1521:xe"
+	user="mybts"
+	password = "1234" />
 
-	String sql = " SELECT * FROM tbl_addr ORDER BY ad_num ";
-
-	PreparedStatement ps;
-	ResultSet rs = null;
-
-	try {
-
-		Class.forName(oracleDriver);
-		dbConn = DriverManager.getConnection(url, user, password);
-		ps = dbConn.prepareStatement(sql);
-		rs = ps.executeQuery();
-
-	} catch (ClassNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-%>
-
-
-
-
+<sql:query dataSource="${addrDataSource}" var="addrList" >
+	SELECT * FROM tbl_addr
+</sql:query>
 
 
 <!DOCTYPE html>
@@ -98,24 +78,16 @@
 				<th>주소</th>
 				<th>상세주소</th>
 			</tr>
-
-			<%
-				while (rs.next()) {
-			%>
+			<c:forEach var="row" items="${addrList.rows}" >
+			
 			<tr>
-
-				<td><%=rs.getString("ad_num")%></td>
-				<td><%=rs.getString("ad_name")%></td>
-				<td><%=rs.getString("ad_tel")%></td>
-				<td><%=rs.getString("ad_addr1")%></td>
-				<td><%=rs.getString("ad_addr2")%></td>
+				<td><a href="../forms/addr_input2.jsp?ad_num=${row.ad_num }">${row.ad_num}</a></td>
+				<td>${row.ad_name}</td>
+				<td>${row.ad_tel}</td>
+				<td>${row.ad_addr1}</td>
+				<td>${row.ad_addr2}</td>
 			</tr>
-
-
-			<%
-				}
-			%>
-
+			</c:forEach>
 		</table>
 		<div id="button-div">
 		<button onclick="location.href='/sp003/forms/addr_input.jsp'">주소추가</button>

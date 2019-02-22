@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+*{
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing : border-box;
+	
+}
+
+html{
+	height : 100%;
+}
+
+body{
+	display: flex;
+	flex-direction: column;
+	
+/* margin과 padding은 0으로 셋팅하고 시작하기 */
+	margin : 0; 
+	padding : 0;
+	
+	height: 100%;
+	
+}
+
+.main-header{
+	flex : 0 1 auto;   /* 0 1 auto */
+	
+	height: 80px;
+	text-align: center;
+	color : white;
+	background-color: #555;
+	margin: 0;
+	
+}
+
+.content-container{
+	flex : 1;
+	
+	position: absolute; /* 위치를 고정하라 */
+	top : 80px; /* main-header 바로 아래쪽에 붙게 하겠다 >> top과 left */
+	left : 0;
+	
+	bottom : 30px; /* footer 영역을 비워두라 */	
+	right: 0; /* 화면 오른쪽 끝에 붙는다 >> width을 100으로 준 효과 */
+
+	display: flex;
+}
+
+.sidebar{
+	width : 240px;
+	background-color: #666;
+	padding : 4px 20px;
+	color: white;
+}
+
+.main {
+	flex : 1;
+	display: flex;
+	flex-direction:column;
+	
+	background-color: #ddd;
+	
+}
+
+.page-header{
+	background-color: #004141;
+	color: white;
+	font-size: 0.8em;
+	
+	padding : 6px 20px;
+}
+
+
+.content {
+	flex : 1;
+	display: flex;
+}
+
+
+.column {
+	padding:20px;
+	border : 1px solid blue;
+	height: auto;
+}
+
+.column.sub1{
+	flex:3;
+	overflow: auto;
+}
+.column.sub2{
+	flex:1;
+}
+
+
+
+
+footer{
+	flex : 0 1 30px;
+	height : 30px; /* 내용이 본문 영역을 침범하는 것을 방지 */
+	
+	background-color: #c000ff;
+	text-align: center;
+	padding : 0.3em;
+	color: white;
+	font-size: 12px;
+	
+	/* 내부의  address 중심에 놓기 위해 설정 */
+	align-items: center;
+	justify-content: center;	
+	display: flex;
+
+}

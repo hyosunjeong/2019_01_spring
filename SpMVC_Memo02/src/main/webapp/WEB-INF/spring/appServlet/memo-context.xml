@@ -3,7 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
 <!-- 
@@ -27,24 +29,14 @@
 		<property name="dataSource" ref="dataSource"/> <!--  위에서 만든 dataSource -->
 	</bean>
 
-	<!-- MemoDao에 설정된 SQL문을 사용해서 Data의 CRUD를 도와줄 클래스를 생성
-		=> sqlSession(Temple) 이라고 한다. -->
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"> <!--  Sqlsession c+s -->
-		<constructor-arg index="0" ref="sqlSessionFactroy"/>
-	</bean>
+	<!-- mybatis-spring:scan이 sqlSession(Temple)을 무력화 시키기 때문에 sqlSession(Temple)을 삭제 -->
 	
-	<!-- mapper를 등록
-		sqlSession과 Dao 인터페이스를 연결해서 직접 Dao 인터페이스로부터 
-		데이터 접속을 하기 위한 방법
+	<!-- 기존의 mapper 설정을 삭제-->
+	<!--  mybatis-spring에게 base-package로 설정된 패키지의 클래스들을 뒤져서 
+		@Select ... 이 설정된 항목을 찾아서 자동으로 mapper로 등록하라
+		(mybatis c+s 하고 패키지명 입력)
 	 -->
-	 <bean id ="memoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-	 	<property name="mapperInterface" value="com.biz.memo02.dao.MemoDao"/> <!-- memoDao c+s -->
-	 	<property name="sqlSessionTemplate" ref="sqlSession"/>
-	 
-	 </bean>
-	 
-	
-	
+	<mybatis-spring:scan base-package="com.biz.memo02.dao"/>
 	
 	
 </beans>

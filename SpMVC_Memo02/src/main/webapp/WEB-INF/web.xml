@@ -2,6 +2,28 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	
+	<!--  tomcat이 request를 받아서 controller로 전송하기 전에
+			데이터를 가로채서 처리를 하도록 설정한다.
+			한글 설정을 UTF-8로 바꾸도록(encoding) 설정
+	 -->
+	<filter>
+		<filter-name>enKor</filter-name> <!--  대소문자 구분! -->
+		<filter-class>
+			org.springframework.web.filter.CharacterEncodingFilter <!-- .class는 지우기 -->
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+
+	<!-- tomcat에서 사용하도록 설정(지시) -->
+	<filter-mapping>
+		<filter-name>enKor</filter-name> <!-- 위에서 설정한 이름과 같이 해주기 -->
+		<url-pattern>*</url-pattern> <!-- 모든 파일을 요청할 때 enKor을 거쳐가도록 한다 -->
+	</filter-mapping>
+
 
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>

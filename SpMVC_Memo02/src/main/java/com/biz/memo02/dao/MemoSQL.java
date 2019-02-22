@@ -3,18 +3,24 @@ package com.biz.memo02.dao;
 public class MemoSQL {
 	
 	public static final String MEMO_SELECT_ALL
-	= 	" SELECT * FROM tbl_memo ";
+	= " SELECT * FROM tbl_memo ORDER BY id";
 	
 	public static final String MEMO_FIND_BY_ID
 	= " SELECT * FROM tbl_memo WHERE id =#{id} ";
 	
 	public static final String MEMO_INSERT
-	= " INSERT INTO tbl_memo  VALUES(#{id},#{m_auth},#{m_date},#{m_subject},#{m_text}) ";
-	
+	= " INSERT INTO tbl_memo(id,m_auth,m_date,m_subject,m_text) "
+	+ " VALUES( SEQ_MEMO.NEXTVAL,#{m_auth},#{m_date},#{m_subject},#{m_text} ) ";
+			
 	
 	public static final String MEMO_UPDATE
-	= " UPDATE tbl_memo SET m_auth=#{m_auth},m_date=#{m_date},m_subject=#{m_subject},m_text=#{m_text} "
-			+ " WHERE id=#{id} ";
+	= " UPDATE tbl_memo SET "
+	//+ " id =#{id}, "  update에서 id값은 안넣어도 괜찮다
+	+ " m_auth=#{m_auth}, "
+	+ " m_date=#{m_date}, "
+	+ " m_subject=#{m_subject}, "
+	+ " m_text=#{m_text} "
+	+ " WHERE id=#{id} ";
 	
 	public static final String MEMO_DELETE
 	= " DELETE * FROM tbl_memo WHERE id=#{id} ";

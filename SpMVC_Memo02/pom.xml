@@ -98,7 +98,14 @@
 			<version>12.1.0.1</version>
 		</dependency>
 
-
+<!-- 나중에 따로 추가했음 -->
+<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.4</version>
+    <scope>provided</scope>
+</dependency>
 
 
 

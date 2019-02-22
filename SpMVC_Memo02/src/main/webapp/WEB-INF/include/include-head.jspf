@@ -1,0 +1,17 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<meta name = "viewport" content="width=divice-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>메모장</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- w3에서  -->
+
+<!--  본문에 포함된 css 내용을 별도 파일로 분리 -->
+<link rel="stylesheet" href=<c:url value="/css/memo_main.css"/>>
+    <!--  
+	webapp에서 폴더를 css라고 생성하고
+	css파일을 memo_main이름으로 생성한다.
+	(생성된 파일에 본문에서 작성된 style부분을 붙여넣기
+	현재 파일로 돌아와서 link rel을 작성해준다.)
+ -->

@@ -17,7 +17,9 @@ public interface DeptMapper {
 	@Select(" SELECT * FROM tbl_dept WHERE d_code = #{d_code} ")
 	public DeptVO findByDcode(String d_code);
 	
-	@Select(" SELECT * FROM tbl_dept WHERE d_name = #{d_name} ORDER BY d_name ")
+	//MSSQL >> @Select(" SELECT * FROM tbl_dept WHERE d_name LIKE CONCAT ('%', #{d_name},'%') ORDER BY d_name ")
+	//MSSQL >> @Select(" SELECT * FROM tbl_dept WHERE d_name LIKE '%' + #{d_name} +'%' ORDER BY d_name ") 
+	@Select(" SELECT * FROM tbl_dept WHERE d_name LIKE '%'||#{d_name}||'%' ORDER BY d_name ")
 	public List<DeptVO> findByDname(String d_name);
 	
 	@InsertProvider(type=DeptSQLBuilder.class, method="getInsertSQL")

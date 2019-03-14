@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.biz.ajax01.model.DeptVO;
 import com.biz.ajax01.service.DeptService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class DeptController {
 	
@@ -20,11 +23,8 @@ public class DeptController {
 DeptService dService; 
 
 	@RequestMapping(value="dept",method=RequestMethod.GET)
-	public String Dept_list(Model model) {
-		
-		List<DeptVO> deptList = dService.getDeptList();
-		model.addAttribute("DEPTLIST", deptList);
-		
+	public String dept_list(Model model) {
+		model.addAttribute("BODY", "DEPT");
 		return "home";
 	}
 
@@ -56,12 +56,22 @@ DeptService dService;
 
 		
 	@ResponseBody
-	@RequestMapping(value="dept.JSON",method=RequestMethod.POST,produces="application/json;charest=utf8")
+	@RequestMapping(value="dept.JSON",method=RequestMethod.POST,produces="application/json;charset=utf8")
 	public DeptVO get_dept_json(@RequestParam String d_code) {
 		
 		DeptVO deptVO = dService.getDept(d_code);
 		return deptVO;
 		
+	}
+	
+	@RequestMapping(value="dsearch",method=RequestMethod.POST)
+	public String dsearch(@RequestParam String dsearch, Model model) {
+		List<DeptVO> deptList = dService.getFindByDName(dsearch);
+		
+		
+		model.addAttribute("DEPTLIST", deptList);
+		
+		return "bodys/dept-list";
 	}
 	
 

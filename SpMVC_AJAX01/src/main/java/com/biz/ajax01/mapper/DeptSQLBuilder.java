@@ -21,10 +21,11 @@ public class DeptSQLBuilder {
 		// 1.7 이하에서 컴파일 오류 가능성이 있음
 		SQL sql = new SQL();
 			sql.INSERT_INTO("tbl_dept");
-			sql.INTO_COLUMNS("d_code").INTO_VALUES("#{d_code}");
+			sql.INTO_COLUMNS("d_code");
+			sql.INTO_VALUES("#{d_code,jdbcType=VARCHAR}");
 		
-			sql.VALUES("d_name", "#{d_name}");
-			sql.VALUES("d_ceo", "#{d_ceo}");
+			sql.VALUES("d_name", "#{d_name,jdbcType=NVARCHAR}");
+			sql.VALUES("d_ceo", "#{d_ceo,jdbcType=NVARCHAR}");
 				
 		
 		return sql.toString();

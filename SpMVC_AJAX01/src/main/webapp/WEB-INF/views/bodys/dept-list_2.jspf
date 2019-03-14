@@ -52,6 +52,8 @@ $(function(){
 	
 	$(".d-tr").click(function(){
 		let dcode=$(this).attr("data-d-code")
+		
+			// 배열에 추가
 		deptList.push(dcode)	
 		
 		var s1 =""
@@ -156,10 +158,10 @@ $(function(){
 		<c:forEach items="${DEPTLIST}" var="dVO" varStatus="i">
 		<!--  for 시작 -->
 		<tr class="d-tr" data-d-code="${dVO.d_code}">
-			<th>${i.count}</th>
-			<th>${dVO.d_code}</th>
-			<th>${dVO.d_name}</th>
-			<th>${dVO.d_ceo}</th>
+			<td>${i.count}</td>
+			<td>${dVO.d_code}</td>
+			<td>${dVO.d_name}</td>
+			<td>${dVO.d_ceo}</td>
 		</tr>
 		<!-- for 끝 -->
 		</c:forEach>

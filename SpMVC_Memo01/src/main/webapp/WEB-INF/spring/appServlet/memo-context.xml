@@ -25,7 +25,7 @@
 	</bean>
 	
 	<bean id="memoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.biz.memo01.model.MemoDao" />
+		<property name="mapperInterface" value="com.biz.email.model.EmsDao" />
 		<property name="sqlSessionTemplate" ref ="sqlSession" />
 		
 		

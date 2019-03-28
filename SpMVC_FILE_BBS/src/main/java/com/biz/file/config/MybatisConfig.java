@@ -43,7 +43,7 @@ public class MybatisConfig {
 		SqlSessionFactoryBean sf = new SqlSessionFactoryBean();
 		sf.setDataSource(ds());
 		// 앞으로 사용할 VO클래스가 있는 패키지 경로를 지정한다.
-		sf.setTypeAliasesPackage("com.biz.ifle.model");
+		sf.setTypeAliasesPackage("com.biz.file.model");
 		return sf;
 	}
 	/*

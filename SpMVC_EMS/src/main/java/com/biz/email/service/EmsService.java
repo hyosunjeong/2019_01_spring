@@ -16,32 +16,32 @@ public class EmsService {
 
 	
 	@Autowired
-	EmsDao dao;
+	EmsDao dDao;
 	
 	
 	public List<EmsVO> selectAll() {
 		
-		return dao.selectAll();
+		return dDao.selectAll();
 	}
 
 	public EmsVO findById(long id) {
 
-		return dao.findById(id);
+		return dDao.findById(id);
 	}
 
 	public int insert(EmsVO emsVO) {
-		int ret = dao.insert(emsVO);
+		int ret = dDao.insert(emsVO);
 		return ret;
 	}
 
 	public int update(EmsVO emsVO) {
-		int ret = dao.update(emsVO);
+		int ret = dDao.update(emsVO);
 		return ret;
 	}
 
 	public int delete(long id) {
 		
-		return dao.delete(id);
+		return dDao.delete(id);
 	}
 
 }

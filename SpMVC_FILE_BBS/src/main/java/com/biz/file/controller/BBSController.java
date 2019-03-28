@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +27,7 @@ import com.biz.file.model.BoardVO;
 import com.biz.file.model.MemberVO;
 import com.biz.file.service.BBSService;
 import com.biz.file.service.FileUpService;
+import com.biz.file.service.PageService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,6 +43,9 @@ public class BBSController {
 	@Autowired
 	FileUpService fService;
 	
+	@Autowired
+	PageService pService;
+	
 	@ModelAttribute("bbsVO")
 	public BoardVO newMember() {
 		return new BoardVO();
@@ -55,12 +60,44 @@ public class BBSController {
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String bbs_list(Model model) {
 		
-		List<BoardVO> bbsList = bService.selectAll();
+		// List<BoardVO> bbsList = bService.selectAll();
+		List<BoardVO> bbsList = pService.pageList(1, 10);
 		
 		model.addAttribute("BBS_LIST", bbsList); /* 게시판 리스트를 담고있는 BBS_List에 대한 변수*/
 		model.addAttribute("BODY", "BBS_LIST"); /* BODY에 담겨있는 값*/
 		return "home";
 	}
+	
+	@RequestMapping(value="/tag",method=RequestMethod.GET)
+	public String bbs_tag_write(@ModelAttribute ("bbsVO")BoardVO boardVO, 
+			HttpSession session, // login정보를 추출하기 위함
+			Model model) {
+		
+		MemberVO memberVO = (MemberVO)session.getAttribute("login_info");
+		
+		if(memberVO != null) {
+			boardVO.setB_userid(memberVO.getM_userid());
+		} else {
+			boardVO.setB_userid("zxcv@biz.com");
+		}
+		// 1.8 이상일 경우
+				LocalDateTime ld = LocalDateTime.now();
+				DateTimeFormatter fd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+				DateTimeFormatter ft = DateTimeFormatter.ofPattern("HH:mm:ss");
+				
+				String today = ld.format(fd);
+				String nt = ld.format(ft);
+				
+				boardVO.setB_date(today);
+				boardVO.setB_time(nt);
+		
+		model.addAttribute("BODY", "BBS_TAG_WRITE");
+		model.addAttribute("bbsVO", boardVO);
+		
+		return "home";
+	
+	}
+	
 	
 	
 	/*
@@ -74,7 +111,7 @@ public class BBSController {
 	 * 세팅된 상태로 게시판 폼을 열어서 글쓰기를 할 수 있다.
 	 */
 	
-	@RequestMapping(value="/write",method=RequestMethod.GET)
+	@RequestMapping(value="/drag",method=RequestMethod.GET)
 	public String bbs_write(@ModelAttribute ("bbsVO")BoardVO boardVO, 
 			HttpSession session, // login정보를 추출하기 위함
 			Model model) {
@@ -164,6 +201,37 @@ public class BBSController {
 			
 		}
 	}
+	
+	@RequestMapping(value="write_tag",method=RequestMethod.POST)
+	public String write_tag(@ModelAttribute("bbsVO")
+							BoardVO boardVO,
+							BindingResult result,
+							@RequestParam("b_file")
+							MultipartFile b_file) {
+			
+		log.debug(boardVO.toString());
+		
+		// req metho 호출에서 400 오류가 발생하여 곤란을 겪을 때
+		// 매개변수로 BindResult 클래스를 하나 설정하면
+		// 400 오류를 모두 흡수하고 method 내부로 코드가 진입이 된다.
+		
+		// method 내부에서 아래코드를 이용해서 어떤 오류가 발생했는지 검사해보고 처리를 수행한다.
+		List<FieldError> fe = result.getFieldErrors();
+		for(FieldError f: fe) {
+			log.debug("ERROR :" + f.toString());
+		}
+		
+		if(!b_file.isEmpty()) {
+			String saveFile = fService.upload(b_file);
+			
+			boardVO.setB_image(saveFile);
+			
+		}
+		bService.insert(boardVO);
+		
+		return "redirect:/bbs/";
+	}
+	
 	
 	@RequestMapping(value="/view",method=RequestMethod.GET)
 	public String bbs_view(

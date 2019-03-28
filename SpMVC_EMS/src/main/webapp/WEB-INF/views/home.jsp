@@ -14,7 +14,7 @@
 		padding:20px;
 		background-color: pink;
 		color: white;
-	
+		text-align: center;
 		font-weight: bold;
 	}
 	
@@ -46,20 +46,30 @@ td {
 
 td, th {
 	padding: 8px 8px;
-	vertical-align: top
+	vertical-align: top;
+	border: 1px sold blue;
+	
 }
 
 td:first-child, th:first-child {
 	padding-left:16px;
 }
-
+.empty-mail{
+	width:100%;
+}
 </style>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 <script>
 
 $(function(){
 	$("#btn-mail").click(function(){
-		location.replace("<c:url value='/mail/' />")
+		location.replace("<c:url value='/mail' />")
+	})
+	
+	$(".mail_tr").click(function(){
+		let id = $(this).attr("data-id")
+		location.href="<c:url value='/update' />" + "?id="+id
+		
 	})
 })
 
@@ -76,12 +86,14 @@ $(function(){
 			<th>보내는 Email</th>
 			<th>받는 Email</th>
 			<th>제목</th>
+			<th>파일1</th>
+			<th>파일2</th>
 		</tr>
-	</table>
-	</section>
+
+	
 	<c:choose>
 		<c:when test="${empty MAIL}">
-			<tr><td colspan=6>mail이 없습니다</td></tr>
+			<tr><td colspan=6 ">mail이 없습니다</td></tr>
 		</c:when>
 		<c:otherwise>
 			<c:forEach items="${MAIL}" var="mail" varStatus="i">
@@ -93,17 +105,23 @@ $(function(){
 					<td>${mail.to_email}</td>
 					<td>${mail.s_subject}</td>
 					<td>
-						<c:if test="${not empty mail.files}" >
-							<c:forEach items="${mail.files}" 
-									var="file" varStatus="f">
-								<img src="<c:url value='/files/${file.save_file_name}' /> ">							
-							</c:forEach>						
+						<c:if test="${mail.s_file1 != ''}" >
+							<img src="<c:url value='/files/${mail.s_file1}' /> ">							
 						</c:if>
 					</td>
-				</tr>
-			</c:forEach>
-		</c:otherwise>
-	</c:choose>
+					
+					<td>
+						<c:if test="${mail.s_file2 != ''}" >
+							<img src="<c:url value='/files/${mail.s_file2}' /> ">							
+						</c:if>
+					</td>
+					
+					</tr>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
+	</table>
+</section>
 	<hr/>
 	<button id="btn-mail">메일작성</button>
 	

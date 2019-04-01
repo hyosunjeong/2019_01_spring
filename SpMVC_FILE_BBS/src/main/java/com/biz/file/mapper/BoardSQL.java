@@ -34,10 +34,10 @@ public class BoardSQL {
 	public String board_update_sql() {
 		SQL sql = new SQL()
 				.UPDATE("tbl_board")
-				.SET("b_userid = #{b_suerid}")
+				.SET("b_userid = #{b_userid}")
 				.SET("b_date = #{b_date}")
 				.SET("b_time = #{b_time}")
-				.SET("b_subject = #{subject}")
+				.SET("b_subject = #{b_subject}")
 				.SET("b_content = #{b_content}")
 				.SET("b_image = #{b_image}")
 				.SET("b_hit = #{b_hit}")

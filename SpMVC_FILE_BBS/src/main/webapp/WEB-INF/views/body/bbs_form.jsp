@@ -29,11 +29,8 @@
 	}
 	
 	.in-box-border {
-		padding:8px;
-		margin:3px;
 		display: inline-block;
 		width:70%;
-		border-top:1px solid #ccc;
 	}
 	
 	.in-box {
@@ -65,8 +62,10 @@
 		display: none;
 	}
 	.in-box-error{
-		color: red;
-		margin: 3px;
+		display:inline-block;
+		margin-left:20px;
+		font-size:12px;
+		color:red;
 	}
 	.in-file-box{
 		border: 2px solid blue;
@@ -90,15 +89,15 @@ $(function(){
 	})
 
 	$('#drop-box').on('drop',function(e){
-		
-		let files=e.originalEvent.dataTransfer.files
+		$('h3').text('파일을 등록하는중')
+		let files = e.originalEvent.dataTransfer.files
 		
 		let fData = new FormData();
 		
 		fData.append('file',files[0])
 		
 		$.ajax({
-			url : "<c:url value='/file/file' />",
+			url : "<c:url value='/bbs/file' />",
 			method:"POST",
 			data:fData,
 			processData:false,

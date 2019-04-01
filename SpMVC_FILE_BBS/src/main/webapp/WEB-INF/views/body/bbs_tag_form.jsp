@@ -29,11 +29,8 @@
 	}
 	
 	.in-box-border {
-		padding:8px;
-		margin:3px;
 		display: inline-block;
 		width:70%;
-		border-top:1px solid #ccc;
 	}
 	
 	.in-box {
@@ -65,8 +62,10 @@
 		display: none;
 	}
 	.in-box-error{
-		color: red;
-		margin: 3px;
+		display:inline-block;
+		margin-left:20px;
+		font-size:12px;
+		color:red;
 	}
 	.in-file-box{
 		border: 2px solid blue;
@@ -93,48 +92,49 @@ form:form에서는 기본값이 POST
 %>
 
 <!--  파일 업로드시 사용 enctype -->
-<form:form 
+<form
 	enctype="multipart/form-data" 
 	action="${rootPath}/bbs/write_tag"
-	modelAttribute="bbsVO">
+	method="POST">
 
 	<fieldset>
 	<legend>게시판 작성</legend>
+	
+	<input type="hidden" name="id" 
+				value="<c:out value='${bbsVO.id}'/> default='0' ">
 		
 	<label  class="in-label" for="b_userid">회원ID</label>
 	<div class="in-box-border">
-		<form:input class="in-box" readonly="true"
-				placeholder="회원ID를 입력하세요"
-				id="b_userid" path="b_userid"/><br/>
-		<form:errors path="b_userid" class="in-box-error" />
+		<input class="in-box" readonly="true"
+			placeholder="회원ID를 입력하세요"
+			id="b_userid" 
+			name="b_userid" value="${bbsVO.b_userid}"/><br/>
 	</div>
 			
 	<label class="in-label" for="b_date">작성일자</label>
 	<div class="in-box-border">
-		<form:input class="in-box"
-				id="b_date" path="b_date"/><br/>
-		<form:errors path="b_date" class="in-box-error" />		
-	</div>		
+		<input class="in-box"
+			id="b_date"   value="${bbsVO.b_date}"
+			name="b_date" /><br/>
+	</div>
 	
 	<label class="in-label" for="b_time">작성시각</label>
 	<div class="in-box-border">
-		<form:input class="in-box"
-				id="b_time" path="b_time"/><br/>
-		<form:errors path="b_time" class="in-box-error" />		
-	</div>	
+		<input class="in-box"
+			id="b_time" value="${bbsVO.b_time}" 
+			name="b_time" /><br/>
+	</div>
 			
 	<label  class="in-label" for="b_subject">제목</label>
-		<div class="in-box-border">
-		<form:input class="in-box"
-				id="b_subject" path="b_subject"/><br/>
-		<form:errors path="b_subject" />
-		</div>
+	<div class="in-box-border">
+		<input  class="in-box"
+			id="b_subject" value="${bbsVO.b_subject}" 
+			name="b_subject" /><br/>
+	</div>
 		
 	<label class="in-label" for="b_content">내용</label>
 	<div class="in-box-border">
-		<form:input type="text" class="in-box"
-			id="b_content" path="b_content" rows="5"/><br/>
-		<form:errors path="b_content" class="in-box-error" />
+		<textarea id="b_content" name="b_content"></textarea><br/>
 	</div>
 	
 	<label class="in-label"></label>
@@ -144,4 +144,4 @@ form:form에서는 기본값이 POST
 	<label class="in-label" for="btn-join"></label>
 	<button id="btn-join-1" type="submit">저장</button>
 	</fieldset>
-</form:form>
+</form>

@@ -16,32 +16,49 @@ public class EmsService {
 
 	
 	@Autowired
-	EmsDao dDao;
+	EmsDao eDao;
 	
+	@Autowired
+	SendMailService sMail;
 	
 	public List<EmsVO> selectAll() {
 		
-		return dDao.selectAll();
+		return eDao.selectAll();
 	}
 
 	public EmsVO findById(long id) {
 
-		return dDao.findById(id);
+		return eDao.findById(id);
 	}
 
 	public int insert(EmsVO emsVO) {
-		int ret = dDao.insert(emsVO);
+		int ret = eDao.insert(emsVO);
+		sMail.sendMail(emsVO);
 		return ret;
 	}
 
 	public int update(EmsVO emsVO) {
-		int ret = dDao.update(emsVO);
+		int ret = eDao.update(emsVO);
 		return ret;
 	}
 
 	public int delete(long id) {
 		
-		return dDao.delete(id);
+		return eDao.delete(id);
 	}
+	
+	
+	public int save(EmsVO emsVO) {
+		int ret = 0;
+		
+		if(emsVO.getId()>0) {
+			ret = eDao.update(emsVO);
+		}else {
+			ret = eDao.insert(emsVO);
+		}
+		return 0;
+	}
+
+	
 
 }

@@ -12,7 +12,7 @@ import com.biz.email.model.EmsVO;
 
 public interface EmsDao {
 
-	@Select(" SELECT * FROM tbl_emails ")
+	@Select(" SELECT * FROM tbl_emails ORDER BY s_date DESC, s_time DESC")
 	public List<EmsVO> selectAll();
 	
 	@Select(" SELECT * FROM tbl_emails WHERE id=#{id} ")
@@ -25,6 +25,6 @@ public interface EmsDao {
 	@UpdateProvider(type=EmsSQL.class,method="email_update_sql")
 	public int update(EmsVO emsVO);
 	
-	@Delete(" DELETE FROM tbl_emails WHERE id={id} ")
+	@Delete(" DELETE FROM tbl_emails WHERE id=#{id} ")
 	public int delete(long id);
 }

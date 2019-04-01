@@ -25,13 +25,13 @@ public class EmsSQL {
 		SQL sql = new SQL()
 				.UPDATE("tbl_emails")
 				.SET("from_email=#{from_email}")
-				.SET("to_email=${to_email}")
-				.SET("s_date=${s_date}")
-				.SET("s_time=#{s_time}")
-				.SET("s_subject=#{s_subject}")
-				.SET("s_content=#{s_content}")
-				.SET("s_file1=#{s_file1}")
-				.SET("s_file2=#{s_file2}")
+				.SET("to_email=#{to_email}")
+				.SET("s_date=#{s_date,jdbcType=VARCHAR}")
+				.SET("s_time=#{s_time,jdbcType=VARCHAR}")
+				.SET("s_subject=#{s_subject,jdbcType=VARCHAR}")
+				.SET("s_content=#{s_content,jdbcType=VARCHAR}")
+				.SET("s_file1=#{s_file1,jdbcType=VARCHAR}")
+				.SET("s_file2=#{s_file2,jdbcType=VARCHAR}")
 				.WHERE("id=#{id}");
 		return sql.toString();
 				

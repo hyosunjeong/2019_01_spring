@@ -6,13 +6,20 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.biz.email.model.EmsVO;
 import com.biz.email.service.EmsService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class EmsController {
 	
@@ -47,29 +54,59 @@ public class EmsController {
 		
 		
 		
-		return "include/mail_write";
+		return "body/mail_write";
 	}
 	
 	
 	
 	@RequestMapping(value="mail",method=RequestMethod.POST)
-	public String email(@ModelAttribute EmsVO emsVO) {
+	public String email_insert(@ModelAttribute EmsVO emsVO,
+//			BindingResult result,
+			MultipartFile file1,MultipartFile file2) {
+
+//		for( FieldError s : result.getFieldErrors()) {
+//			log.debug("ERROR: " + s.toString());
+//		}
+		
+		log.debug("EMAILVO : " + emsVO.toString());
 		int ret = eService.insert(emsVO);
-		return "include/mail_write";
+		return "redirect:/";
 	}
 	
-	@RequestMapping(value="/update",method=RequestMethod.GET)
-	public String update(@ModelAttribute("emsVO") EmsVO emsVO, Model model) {
+	@RequestMapping(value="update",method=RequestMethod.POST)
+	public String email_update(@ModelAttribute EmsVO emsVO) {
+		int ret = eService.update(emsVO);
+		return "redirect:/";
+	}
+	
+	
+	@RequestMapping(value="/view",method=RequestMethod.GET)
+	public String view(@ModelAttribute("emsVO") EmsVO emsVO, Model model) {
 		
 		long id = emsVO.getId();
+		log.debug("id:"+id);
 		emsVO = eService.findById(id);
 		
 		model.addAttribute("emsVO", emsVO);
 		
-		
-		
-		return "home";
+		return "body/mail_view";
 	}
 	
+	@RequestMapping(value="delete", method=RequestMethod.GET)
+	public String delete(@RequestParam long id) {
+		eService.delete(id);
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="update",method=RequestMethod.GET)
+	public String update(@ModelAttribute("emsVO")EmsVO emsVO, Model model) {
+		long id = emsVO.getId();
+		emsVO = eService.findById(id);
+		
+		model.addAttribute("MAIL", emsVO);
+		
+		return "body/mail_update";
+	}
+
 	
 }

@@ -56,30 +56,34 @@ $(function(){
 </script>
 
 <body>
-<header class="main-header">메일보내기</header>
+<header class="main-header">메일 보내기</header>
 
 <section>
-<form action="<c:url value='/mail'/>" method="POST" class="main-box">
+<form action="<c:url value='/mail'/>" method="POST" class="main-box" enctype="multipart/form-data">
 
 	<input type="hidden" name="s_date" value="${MAIL.s_date }"><br/>
 	<input type="hidden" name="s_time" value="${MAIL.s_time }"><br/>
 	
 	<label for="from_email">보내는Email</label>
-		<input type="email" id="from_email" class="in-box" name="from_email" ><br/>
+		<input type="email" id="from_email" class="in-box" name="from_email" >
+		
+		<br/>
 	<label for="to_email">받는Email</label>
-		<input type="email" id="to_email" class="in-box" name="to_email"><br/>
+		<input type="email" id="to_email" class="in-box" name="to_email" ><br/>
 	<label for="s_subject">메일제목</label>
-		<input type="text" id="s_subject" class="in-box" name="s_subject"><br/>
+		<input type="text" id="s_subject" class="in-box" name="s_subject" ><br/>
 	<label for="s_content">메일내용</label>
-		<textarea rows="5" id="s_content" class="in-box" name="s_content"></textarea><br/>
+		<textarea rows="5" id="s_content" class="in-box" name="s_content" ></textarea><br/>
 	<label for="s_file1">첨부파일1</label>
-		<input type="file" id="s_file1" class="in-box" name="s_file1"><br/>
+		<input type="hidden" name="s_file1">
+		<input type="file" id="s_file1" class="in-box" name="file1"  ><br/>
 	<label for="s_file2">첨부파일2</label>
-		<input type="file" id="s_file2" class="in-box" name="s_file2">	
+		<input type="file" id="s_file2" class="in-box" name="file2" >	
 	<hr/>
-	<button type="submit">메일보내기</button>
-	<button type="reset">취소</button>
 	<button type="button" id="mail_list">목록보기</button>
+	<button type="submit">저장</button>
+	<button type="reset">취소</button>
+	
 </form>			
 </section>
 

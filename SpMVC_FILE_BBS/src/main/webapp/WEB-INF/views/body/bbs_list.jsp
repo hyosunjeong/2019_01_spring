@@ -46,7 +46,7 @@
 		</c:when>
 		<c:otherwise>
 			<c:forEach items="${BBS_LIST}" var ="BBS" varStatus="i">
-				<tr class="bbs_row" data-id="{BBS.id}">
+				<tr class="bbs_row" data-id="${BBS.id}">
 					<td>${i.count}</td>
 					<td>${BBS.b_userid}</td>
 					<td>${BBS.b_date}</td>
@@ -59,6 +59,9 @@
 	</c:choose>
 </table>
 <hr/>
+<%@ include file="/WEB-INF/views/include/pagenation.jspf" %>
+<hr/>
+
 <button id="btn-drag">글쓰기(drag)</button>
 <button id="btn-tag">글쓰기(tag)</button>
 <script>
@@ -74,10 +77,8 @@
 		$(".bbs_row").click(function(){
 			let id=$(this).attr("data-id")
 			
-			location.replace("<c:url value='/bbs/view' />" + "?id=" +id)
+			location.href="<c:url value='/bbs/view' />" + "?id=" +id
 		})
 	})
 	
 </script>
-</body>
-</html>

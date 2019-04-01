@@ -60,16 +60,16 @@ public class BBSController {
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String bbs_list(Model model) {
 		
-		// List<BoardVO> bbsList = bService.selectAll();
-		List<BoardVO> bbsList = pService.pageList(1, 10);
+		 List<BoardVO> bbsList = bService.selectAll();
+		//List<BoardVO> bbsList = pService.pageList(1, 10);
 		
 		model.addAttribute("BBS_LIST", bbsList); /* 게시판 리스트를 담고있는 BBS_List에 대한 변수*/
 		model.addAttribute("BODY", "BBS_LIST"); /* BODY에 담겨있는 값*/
 		return "home";
 	}
 	
-	@RequestMapping(value="/tag",method=RequestMethod.GET)
-	public String bbs_tag_write(@ModelAttribute ("bbsVO")BoardVO boardVO, 
+	@RequestMapping(value="tag",method=RequestMethod.GET)
+	public String bbs_tag(@ModelAttribute ("bbsVO")BoardVO boardVO, 
 			HttpSession session, // login정보를 추출하기 위함
 			Model model) {
 		
@@ -137,11 +137,11 @@ public class BBSController {
 		
 		// HttpSession은 session정보가 없으면 object 자체가 null이 된다.
 		if(memberVO == null) {
-//			model.addAttribute("LOGIN_MSG","LOGIN_REQ");
-//			return "redirect:/login/login";
+			model.addAttribute("LOGIN_MSG","LOGIN_REQ");
+			return "redirect:/login/login";
 			
-			memberVO = new MemberVO();
-			memberVO.setM_userid("zxcv@biz.com");
+//			memberVO = new MemberVO();
+//			memberVO.setM_userid("zxcv@biz.com");
 			
 		}
 	

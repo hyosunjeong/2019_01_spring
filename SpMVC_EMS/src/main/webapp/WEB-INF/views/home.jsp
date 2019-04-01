@@ -68,7 +68,7 @@ $(function(){
 	
 	$(".mail_tr").click(function(){
 		let id = $(this).attr("data-id")
-		location.href="<c:url value='/update' />" + "?id="+id
+		location.href="<c:url value='/view' />" + "?id="+id
 		
 	})
 })
@@ -93,7 +93,7 @@ $(function(){
 	
 	<c:choose>
 		<c:when test="${empty MAIL}">
-			<tr><td colspan=6 ">mail이 없습니다</td></tr>
+			<tr><td colspan=8 ">mail이 없습니다</td></tr>
 		</c:when>
 		<c:otherwise>
 			<c:forEach items="${MAIL}" var="mail" varStatus="i">

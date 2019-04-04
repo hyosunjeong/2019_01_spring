@@ -16,13 +16,14 @@ import com.biz.iolist.service.ProductService;
 /*
  * 상품정보 컨트롤러
  */
+// form과 controller 사이에서 데이터를 공유하기 위한 방법
 @SessionAttributes("productVO")
 @Controller
 @RequestMapping("/product")
 public class ProductController {
 	
 	@Autowired
-	ProductService productService;
+	ProductService pService;
 	
 	@ModelAttribute("productVO")
 	public ProductVO newProductVO() {
@@ -35,8 +36,8 @@ public class ProductController {
 	@RequestMapping(value="list",method=RequestMethod.GET)
 	public String list(Model model) {
 		
-		List<ProductVO> productList = productService.selectAll();
-		model.addAttribute("LIST", productList);		
+		List<ProductVO> proList = pService.selectAll();
+		model.addAttribute("LIST", proList);		
 		model.addAttribute("BODY", "P_LIST");
 		return "home";
 	}
@@ -53,7 +54,7 @@ public class ProductController {
 	public String write(@ModelAttribute ("ProductVO")ProductVO productVO, Model model, SessionStatus session) {
 		
 		
-		int ret = productService.insert(productVO);
+		int ret = pService.insert(productVO);
 		if(ret>0) {
 			session.setComplete();
 			return "redirect:/product/list";
@@ -63,12 +64,8 @@ public class ProductController {
 			return "home";
 		}
 		
-		
-		
 //		model.addAttribute("MSG", "데이터 추가 성공");
-//		
 //		return "redirect:/";
-		
 	
 	}
 	

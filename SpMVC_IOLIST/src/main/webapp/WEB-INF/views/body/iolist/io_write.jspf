@@ -4,7 +4,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <c:set var="rootPath" value="${pageContext.request.contextPath}" />
-<link href="${rootPath}/css/write.css" rel = "stylesheet">
 
 <form:form 
 	modelAttribute="iolistVO">
@@ -12,14 +11,25 @@
 	<fieldset>
 	<legend>매입매출정보 등록</legend>
 	<div class="in-box-border">
-		<form:input class="in-box" readonly="true"
+		<label for="io_date">거래일자</label>
+		<form:input class="in-box" 
 			placeholder="거래일자"
 			id="io_date" 
 			path="io_date" /><br/>
 		<form:errors path="io_date" class="in-box-error"/>
 	</div>
+	
+	<div class="in-box-border">
+		<label for="io_time">거래시각</label>
+		<form:input class="in-box" 
+			placeholder="거래시각"
+			id="io_time" 
+			path="io_time" /><br/>
+		<form:errors path="io_time" class="in-box-error"/>
+	</div>
 			
 	<div class="in-box-border">
+		<label for="io_pcode">상품코드</label>
 		<form:input class="in-box"
 			placeholder="상품코드"
 			id="io_pcode" 
@@ -28,6 +38,7 @@
 	</div>
 
 	<div class="in-box-border">
+	<label for="io_dcode">거래처코드</label>
 		<form:input class="in-box"
 			placeholder="거래처코드"
 			id="io_dcode" 
@@ -36,14 +47,16 @@
 	</div>
 	
 	<div class="in-box-border">
-		<form:input  class="in-box"
-			placeholder="구분"
-			id="io_inout" 
-			path="io_inout" /><br/>
+	<label for = "io_inout">매입/매출</label>
+		<div class="in-box">
+			<form:radiobutton value="1" label="매입" id="io_inout"  path="io_inout"/>
+			<form:radiobutton  value="2" label="면세" id="io_inout" path="io_inout"/>
+		</div>
 		<form:errors path="io_inout" />
 	</div>
 
 	<div class="in-box-border">
+	<label for="io_quan">수량</label>
 		<form:input  class="in-box"
 			placeholder="수량"
 			id="io_quan" 
@@ -52,14 +65,16 @@
 	</div>
 	
 	<div class="in-box-border">
-		<form:input  class="in-box"
-			placeholder="과세"
-			id="io_tax" 
-			path="io_tax" /><br/>
+	<label for = "io_tax">과세</label>
+		<div class="in-box">
+			<form:radiobutton value="1" label="과세" id="p_tax"  path="io_tax"/>
+			<form:radiobutton  value="0" label="면세" id="p_tax"  path="io_tax"/>
+		</div>
 		<form:errors path="io_tax" />
 	</div>
 	
 	<div class="in-box-border">
+	<label for="io_price">공급단가</label>
 		<form:input  class="in-box"
 			placeholder="공급단가"
 			id="io_price" 
@@ -68,6 +83,7 @@
 	</div>
 	
 	<div class="in-box-border">
+	<label for="io_total">공급가액</label>
 		<form:input  class="in-box"
 			placeholder="공급가액"
 			id="io_total" 
@@ -76,8 +92,9 @@
 	</div>
 	
 	<div class="in-box-border">
+	<label for="io_tax_total">공급대가</label>
 		<form:input  class="in-box"
-			placeholder="합계"
+			placeholder="공급대가"
 			id="io_tax_total" 
 			path="io_tax_total" /><br/>
 		<form:errors path="io_tax_total" />

@@ -18,12 +18,15 @@ public class ProductService {
 	@Autowired
 	SqlSession session;
 	
+	/*
+	 * 리스트 가져오기
+	 */
 	public List<ProductVO> selectAll(){
 			
 			ProductDao pDao = session.getMapper(ProductDao.class);
-			List<ProductVO>productVO = pDao.selectAll();
+			List<ProductVO> proList = pDao.selectAll();
 			
-			return productVO;
+			return proList;
 		}
 	
 	public int insert(ProductVO productVO) {

@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="rootPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>매입매출 관리 시스템</title>
+
+<link href="${rootPath}/css/list.css" rel="stylesheet">
 
 <style>
 
@@ -138,7 +141,6 @@ $(function(){
 			<c:when test="${BODY == 'D_WRITE'}">
 				<%@ include file="/WEB-INF/views/body/dept/d_write.jspf" %>
 			</c:when>
-			
 			
 				<c:otherwise>
 					<%@ include file="/WEB-INF/views/body/dumy_view.jsp" %>

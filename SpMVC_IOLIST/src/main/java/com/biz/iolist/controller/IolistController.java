@@ -10,6 +10,11 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.biz.iolist.model.DeptVO;
 import com.biz.iolist.model.IolistVO;
 
+/*
+ * 매입매출 컨트롤러
+ */
+
+
 @Controller
 @RequestMapping("/iolist")
 public class IolistController {

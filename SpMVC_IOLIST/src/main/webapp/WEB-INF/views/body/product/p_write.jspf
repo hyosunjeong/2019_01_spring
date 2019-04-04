@@ -12,7 +12,7 @@
 	<fieldset>
 	<legend>상품정보 등록</legend>
 	<div class="in-box-border">
-		<form:input class="in-box" readonly="true"
+		<form:input class="in-box" 
 			placeholder="상품코드"
 			id="p_code" 
 			path="p_code" /><br/>

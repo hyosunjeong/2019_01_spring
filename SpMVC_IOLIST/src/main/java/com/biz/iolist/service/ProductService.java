@@ -18,6 +18,10 @@ public class ProductService {
 	@Autowired
 	SqlSession session;
 	
+	private ProductDao pDao() {
+		return session.getMapper(ProductDao.class);
+	}
+	
 	/*
 	 * 리스트 가져오기
 	 */
@@ -29,6 +33,14 @@ public class ProductService {
 			return proList;
 		}
 	
+	public String getPName(String p_code) {
+		ProductVO vo = pDao().findByPCode(p_code);
+		return vo.getP_name();
+		
+	}
+	
+	
+	
 	public int insert(ProductVO productVO) {
 		
 		ProductDao pDao = session.getMapper(ProductDao.class);
@@ -37,6 +49,12 @@ public class ProductService {
 		return ret;
 		
 		
+	}
+
+	public List<ProductVO> findByPName(String p_name) {
+		List<ProductVO> proList = pDao().findByPName(p_name);
+		
+		return proList;
 	}
 	
 	

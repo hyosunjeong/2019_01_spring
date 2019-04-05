@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -33,13 +35,22 @@ public class ProductController {
 		return productVO; 
 	}
 
-	@RequestMapping(value="list",method=RequestMethod.GET)
+	@RequestMapping(value="/list",method=RequestMethod.GET)
 	public String list(Model model) {
 		
 		List<ProductVO> proList = pService.selectAll();
 		model.addAttribute("LIST", proList);		
 		model.addAttribute("BODY", "P_LIST");
 		return "home";
+	}
+	
+	
+	@RequestMapping(value="/search",method=RequestMethod.GET)
+	public String search(@RequestParam("p_name") String p_name, Model model) {
+		
+		List<ProductVO> proList = pService.findByPName(p_name);
+		model.addAttribute("LIST", proList);		
+		return "body/product/p_search_list";
 	}
 	
 	@RequestMapping(value="/write",method=RequestMethod.GET)
@@ -67,6 +78,14 @@ public class ProductController {
 //		model.addAttribute("MSG", "데이터 추가 성공");
 //		return "redirect:/";
 	
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="get_p_name",method=RequestMethod.GET, produces="text/plan;charset=utf8")
+	public String getPName(@RequestParam ("p_code") String p_code) {
+		String p_name = pService.getPName(p_code);
+		
+		return p_name;
 	}
 	
 }

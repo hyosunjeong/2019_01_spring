@@ -4,6 +4,95 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <c:set var="rootPath" value="${pageContext.request.contextPath}" />
+<%@ include file="/WEB-INF/views/body/modal-box.jspf" %>
+<script>
+$(function(){
+	
+	var io_quan
+	var io_price
+	
+	$.get("${rootPath}/product/get_p_name?p_code=${iolistVO.io_pcode}",function(result){
+		$("#p_name").text(result)
+	})
+	
+	$.get("${rootPath}/dept/get_d_name?d_code=${iolistVO.io_dcode}",function(result){
+		$("#d_name").text(result)
+	})
+	
+	$("io_tax_on").click(function(){
+		io_tax = '1'
+	})
+	
+	$("io_tax_off").click(function(){
+		io_tax = '0'
+	})
+	
+	$("#io_pcode").keydown(function(key){
+		if(key.keyCode == 13){ //글자를 입력하는 중에 Enter를 누르면
+			$("#myModal").css("display","block")
+			
+			let io_inout = $("#io_inout").val() // 매입매출 구분
+			let io_pcode = $(this).val()
+			
+			$.get("${rootPath}/product/search?p_name=" + io_pcode,function(result){
+				$("#modal-body").html(result)
+			})
+		}
+	})
+	
+	$("#io_dcode").keydown(function(key){
+		if(key.keyCode == 13){ //글자를 입력하는 중에 Enter를 누르면
+			$("#myModal").css("display","block")
+			
+			let io_dcode = $(this).val()
+			
+			$.get("${rootPath}/dept/search?d_name=" + io_dcode,function(result){
+				$("#modal-body").html(result)
+			})
+		}
+	})
+	
+	
+	$("#io_quan").keydown(function(key){
+		// if(key.keyCode == 13){
+			io_quan = parseInt($(this).val())
+			io_price = parseINT($("#io_price").val())
+			
+		// }
+	})
+	
+	$("#io_price").keydown(function(key){
+		// if(key.keyCode == 13){
+			io_price = parseInt($(this).val())
+			io_quan = parseINT($("#io_quan").val())
+			
+		// }
+	})
+	function total(){
+		
+		let sum = io_quan * io_price 
+		$("#io_total").val(sum)
+		
+		let io_tax_total = 0
+		let io_tax = $("input[name='io_tax']:checked").val()
+		
+		if("io_tax").val() == '1'){
+			io_tax_total = Math.round(sum * 1.1) // 반올림
+		} else{
+			io_tax_total = sum
+		}
+		$("#io_tax_total").val(io_tax_total)
+	}
+	
+	$("#btn-write").click(function(){
+		$('form').submit()
+		
+	})
+		
+	
+})
+
+</script>
 
 <form:form 
 	modelAttribute="iolistVO">
@@ -27,33 +116,39 @@
 			path="io_time" /><br/>
 		<form:errors path="io_time" class="in-box-error"/>
 	</div>
-			
-	<div class="in-box-border">
-		<label for="io_pcode">상품코드</label>
-		<form:input class="in-box"
-			placeholder="상품코드"
-			id="io_pcode" 
-			path="io_pcode" /><br/>
-		<form:errors path="io_pcode"  class="in-box-error"/>
-	</div>
-
-	<div class="in-box-border">
-	<label for="io_dcode">거래처코드</label>
-		<form:input class="in-box"
-			placeholder="거래처코드"
-			id="io_dcode" 
-			path="io_dcode" /><br/>
-		<form:errors path="io_dcode"  class="in-box-error"/>
-	</div>
 	
 	<div class="in-box-border">
 	<label for = "io_inout">매입/매출</label>
 		<div class="in-box">
 			<form:radiobutton value="1" label="매입" id="io_inout"  path="io_inout"/>
-			<form:radiobutton  value="2" label="면세" id="io_inout" path="io_inout"/>
+			<form:radiobutton  value="2" label="매출" id="io_inout" path="io_inout"/>
 		</div>
 		<form:errors path="io_inout" />
 	</div>
+			
+	<div class="in-box-border">
+		<label for="io_pcode">상품코드</label>
+		<form:input class="in-box code"
+			placeholder="상품코드"
+			id="io_pcode" 
+			path="io_pcode" />
+			<span class="name-box" id="p_name"></span>
+			<br/>
+		<form:errors path="io_pcode"  class="in-box-error"/>
+	</div>
+
+	<div class="in-box-border">
+	<label for="io_dcode">거래처코드</label>
+		<form:input class="in-box code"
+			placeholder="거래처코드"
+			id="io_dcode" 
+			path="io_dcode" />
+			<span class="name-box" id="d_name"></span>
+			<br/>
+		<form:errors path="io_dcode"  class="in-box-error"/>
+	</div>
+	
+	
 
 	<div class="in-box-border">
 	<label for="io_quan">수량</label>
@@ -67,8 +162,8 @@
 	<div class="in-box-border">
 	<label for = "io_tax">과세</label>
 		<div class="in-box">
-			<form:radiobutton value="1" label="과세" id="p_tax"  path="io_tax"/>
-			<form:radiobutton  value="0" label="면세" id="p_tax"  path="io_tax"/>
+			<form:radiobutton value="1" label="과세" id="io_tax_on"  path="io_tax"/>
+			<form:radiobutton  value="0" label="면세" id="io_tax_off"  path="io_tax"/>
 		</div>
 		<form:errors path="io_tax" />
 	</div>
@@ -103,6 +198,6 @@
 	<hr/>
 	
 	<label class="in-label" for="btn-write"></label>
-	<button id="btn-write" type="submit">저장</button>
+	<button id="btn-write" type="button">저장</button>
 	</fieldset>
 </form:form>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.biz.iolist.model.IolistDto;
 import com.biz.iolist.model.IolistVO;
 import com.biz.iolist.service.IolistService;
 
@@ -40,15 +41,20 @@ public class IolistController {
 		vo.setIo_date(fdate.format(lt));
 		vo.setIo_time(ftime.format(lt));
 		
+		vo.setIo_inout("1");
+		vo.setIo_tax("1");
+		
 		return vo; 
 	}
 
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String list(Model model) {
 		
-		List<IolistVO> io_List = ioService.selectAll();
+//		List<IolistVO> io_List = ioService.selectAll();
 		
-		model.addAttribute("LIST", io_List);		
+		List<IolistDto> io_list = ioService.selectJoin();
+		
+		model.addAttribute("LIST", io_list);		
 		model.addAttribute("BODY", "IO_LIST");
 		
 		return "home";
@@ -99,6 +105,7 @@ public class IolistController {
 	public String update(@ModelAttribute("iolistVO")IolistVO iolistVO, Model model, SessionStatus session) {
 	
 		int ret = ioService.update(iolistVO);
+		session.setComplete();
 		
 		return "redirect:/iolist/list";
 	}

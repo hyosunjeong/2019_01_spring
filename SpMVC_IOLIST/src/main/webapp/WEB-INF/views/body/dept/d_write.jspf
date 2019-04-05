@@ -4,6 +4,19 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <c:set var="rootPath" value="${pageContext.request.contextPath}" />
+<script>
+$(function(){
+	$("#btn_new").click(function(){
+		$.get("${rootPath}/dept/get_new_code",function(result){
+			$("#d_code").val(result)
+			
+			
+		})
+		
+	})
+})
+
+</script>
 
 <form:form 
 	modelAttribute="deptVO">
@@ -11,16 +24,16 @@
 	<fieldset>
 	<legend>거래처정보 등록</legend>
 	<div class="in-box-border">
-		<label for="d_code">거래처코드</label>
-		<form:input class="in-box" 
+		<form:input class="in-box code" 
 			placeholder="거래처코드"
 			id="d_code" 
-			path="d_code" /><br/>
+			path="d_code" />
+			<button id="btn_new" type="button">새로작성</button>
+			<br/>
 		<form:errors path="d_code" class="in-box-error"/>
 	</div>
 			
 	<div class="in-box-border">
-	<label for="d_name">거래처명</label>
 		<form:input class="in-box"
 			placeholder="거래처명"
 			id="d_name" 
@@ -29,7 +42,6 @@
 	</div>
 
 	<div class="in-box-border">
-	<label for="d_ceo">대표자명</label>
 		<form:input class="in-box"
 			placeholder="대표자명"
 			id="d_ceo" 
@@ -38,7 +50,6 @@
 	</div>
 	
 	<div class="in-box-border">
-	<label for="d_tel">대표전화</label>
 		<form:input  class="in-box"
 			placeholder="대표전화"
 			id="d_tel" 
@@ -47,7 +58,6 @@
 	</div>
 
 	<div class="in-box-border">
-	<label for="d_addr">주소</label>
 		<form:input  class="in-box"
 			placeholder="주소"
 			id="d_addr" 

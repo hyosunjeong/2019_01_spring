@@ -11,7 +11,7 @@
 <title>매입매출 관리 시스템</title>
 
 <link href="${rootPath}/css/list.css?ver=1" rel="stylesheet">
-<link href="${rootPath}/css/write.css?ver=2" rel="stylesheet">
+<link href="${rootPath}/css/write.css?ver=3" rel="stylesheet">
 <style>
 
 *{
@@ -77,7 +77,9 @@ li a:hover{
 .scroll .logo,
 .scroll ul{
 	margin: 0px;
-	
+}
+.mail{
+	overflow: auto;
 }
 
 </style>

@@ -10,8 +10,11 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="com.biz.iolist.model.IolistVO" alias="iolistVO"/>
+		<typeAlias type="com.biz.iolist.model.IolistDto" alias="iolistDto"/>
+		
 		<typeAlias type="com.biz.iolist.model.ProductVO" alias="productVO"/>
 		<typeAlias type="com.biz.iolist.model.DeptVO" alias="deptVO"/>
+		
 		
 		<!--  alias를 써주지 않으면 mapper에 resultType을  com.biz.iolist.model.IolistVO 로 써줘야 함
 			alias는 별명이라고 생각하면 된다

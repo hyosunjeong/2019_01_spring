@@ -10,10 +10,14 @@ public interface DeptDao {
 	
 	public DeptVO findByDCode(String d_code);
 	
+	public String getDCode();
+	
 	public int insert(DeptVO deptVO);
 	
 	public int update(DeptVO deptVO);
 	
 	public int delete(String d_code);
+
+	public List<DeptVO> findByDName(String d_name);
 	
 }

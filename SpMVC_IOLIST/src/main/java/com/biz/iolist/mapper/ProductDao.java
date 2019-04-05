@@ -15,6 +15,8 @@ public interface ProductDao {
 	public int update(ProductVO productVO);
 	
 	public int delete(String p_code);
+
+	public List<ProductVO> findByPName(String p_name);
 	
 
 }

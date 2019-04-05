@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -32,7 +34,18 @@ public class DeptController {
 	public DeptVO newDeptVO() {
 		
 		DeptVO deptVO = new DeptVO();
+		
+		deptVO.setD_code(deptService.getDCode());
 		return deptVO;
+	}
+	
+	@RequestMapping(value="/search", method=RequestMethod.GET)
+	public String search(@RequestParam("d_name") String d_name, Model model) {
+		
+		List<DeptVO> deptList = deptService.findByDName(d_name);
+		
+		model.addAttribute("LIST", deptList);
+		return "body/dept/d_search_list";
 	}
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
@@ -43,8 +56,8 @@ public class DeptController {
 		model.addAttribute("LIST", deptList);
 		model.addAttribute("BODY", "D_LIST");
 		return "home";
-		
 	}
+	
 	
 	@RequestMapping(value="/write", method=RequestMethod.GET)
 	public String write(@ModelAttribute("deptVO") DeptVO deptVO, Model model) {
@@ -74,14 +87,24 @@ public class DeptController {
 			model.addAttribute("BODY", "D_WRITE");
 			return "home";
 		}
-		
-		
-		
-		
 //		model.addAttribute("MSG", "데이터 추가 성공");
 //		return "home";
-		
+	}
 	
+	@ResponseBody
+	@RequestMapping(value="get_new_code",method=RequestMethod.GET)
+	public String getNewCode() {
+		
+		return deptService.getDCode();
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="get_d_name",method=RequestMethod.GET,produces="text/plan;charset=utf8")
+	public String getDName(@RequestParam("d_code") String d_code) {
+		
+		return deptService.getDName(d_code);
+		
 	}
 	
 	

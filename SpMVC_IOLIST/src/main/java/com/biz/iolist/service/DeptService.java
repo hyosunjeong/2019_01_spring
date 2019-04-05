@@ -15,15 +15,49 @@ public class DeptService {
 	
 	@Autowired
 	SqlSession session;
+	
+	private DeptDao dDao() {
+		return session.getMapper(DeptDao.class);
+	}
 
+	
 	public List<DeptVO> selectAll(){
 		
 		log.debug("DeptService Call");
-		DeptDao dDao = session.getMapper(DeptDao.class);
-		List<DeptVO> deptVO = dDao.selectAll();
+//		DeptDao dDao = session.getMapper(DeptDao.class);
+		List<DeptVO> deptVO = dDao().selectAll();
 		
 		return deptVO;
 	}
+	
+	public String getDCode() {
+		
+		// tbl_dept에서 가장 큰 코드 값을 가져오는 부분
+		String d_code = dDao().getDCode();
+		String new_dcode = "D0001";
+		if(d_code != null ) { // 테이블에 값이 없으면 null이 된다.
+			d_code = d_code.substring(1); // 1번째 문자부터 잘라라
+			
+			// d_code값은 db로부터 가져온 값이어서 혹시 앞 뒤에 빈칸이 있을 수 있어서 빈칸 제거 (trim:빈칸제거)
+			int temp_code = Integer.valueOf(d_code.trim()) + 1; //100 
+			new_dcode = String.format("D%04d", temp_code);
+			/*
+			 * %d : 숫자 (정수)를 표현
+			 * %5d : 왼쪽에 빈칸을 두고 자리수를 5개로 맞추어라
+			 * %05d : 왼쪽 빈칸을 0으로 채워서 자리수를 5개로 맞추어라 > 00100
+			 * 최종 결과는 D0100
+			 */
+			
+		}
+		return new_dcode;
+	}
+	
+	public String getDName(String d_code) {
+		DeptVO vo = dDao().findByDCode(d_code);
+		return vo.getD_name();
+	}
+	
+	
 
 	public int insert(DeptVO deptVO) {
 		// TODO Service insert method
@@ -32,9 +66,17 @@ public class DeptService {
 		// 조건 : session으로부터 DeptDao mapper를 추출
 		// 결과 : deptDao mapper의 insert를 수행하여
 		// 테이블의 데이터 저장 완료
-		DeptDao dDao = session.getMapper(DeptDao.class);
-		int ret = dDao.insert(deptVO);
+//		DeptDao dDao = session.getMapper(DeptDao.class);
+		int ret = dDao().insert(deptVO);
 		
 		return ret;
+	}
+
+
+	public List<DeptVO> findByDName(String d_name) {
+		
+		List<DeptVO> dList = dDao().findByDName(d_name);
+		
+		return dList;
 	}
 }

@@ -49,13 +49,61 @@ public class HomeControllerTest {
 		
 	}
 	
+	
+	/*
+	 * write 메서드를 GET로 호출하면
+	 * write는 주소는 있지만 GET method가 없기 때문에
+	 * 405 응답코드가 발생하고
+	 * Exception이 발생하여 문제가 생길 수 있음을
+	 * 테스트를 통해서 확인한다.
+	 */
 	@Test
-	public void testWrite() throws Exception {
+	public void testWriteGet() throws Exception {
+		
+		mockMVC.perform(get("/write"))
+		.andExpect(status().isMethodNotAllowed()) // 405오류가 나면 pass
+		.andDo(print());
+		
+	}
+	
+	/*
+	 * write 메서드를 POST로 호출하면서
+	 * str 매개변수를 전달하지 않으면 
+	 * 400 응답코드가 발생하고
+	 * Exception이 발생하여 문제가 생길 수 있음을
+	 * 테스트를 통해서 확인한다.
+	 */
+	@Test
+	public void testWritePost() throws Exception {
+		
+		mockMVC.perform(post("/write"))
+		.andExpect(status().isBadRequest()) // 400 오류가 보이면
+		.andDo(print());
+		
+	}
+	
+	/*
+	 * HomeController의 write메서드는
+	 * 웹브라우저에 입력 form을 띄워주고 
+	 * 값을 입력한 후 서버로 전송했을 때
+	 * 정상적으로 모든 처리를 하도록 설계를 했다.
+	 * 
+	 * method : POST로 하고
+	 * str parameter를 설정했을 때 test가 pass된다
+	 */
+	@Test
+	public void testWritePostParam() throws Exception {
 		
 		mockMVC.perform(post("/write").param("str","대한민국만세"))
 		.andExpect(status().isOk())
 		.andDo(print());
 		
 	}
+	
+	/*
+	 * Junit test는 정상적인 pass도 테스트하지만
+	 * 비정상적인 fail도 테스트 케이스에 포함하여
+	 * 오류가 발생하는 경우를 알 수 있도록 한다.
+	 */
 
 }

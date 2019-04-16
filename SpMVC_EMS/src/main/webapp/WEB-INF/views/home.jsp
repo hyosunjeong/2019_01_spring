@@ -57,6 +57,21 @@ td:first-child, th:first-child {
 .empty-mail{
 	width:100%;
 }
+
+button{
+		background-color: white; 
+  		color: black; 
+  		border: 2px solid pink;
+  		padding: 10px;
+  		border-radius: 30px;
+		
+	}
+	button:hover{
+		 background-color: pink;
+  		color: white;
+  		padding: 10px;
+	}
+	
 </style>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 <script>
@@ -76,7 +91,7 @@ $(function(){
 </script>
 
 <body>
-<header class="main-header">메일 리스트</header>
+<header class="main-header"><h2>메일 리스트</h2></header>
 	<section>
 	<table class="mail-list">
 		<tr>

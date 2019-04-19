@@ -101,7 +101,7 @@ public class MemberController {
 
 			log.debug("No Error");
 			
-			return "redirect:/member/join";
+			return "redirect:/";
 			// redirect member/join으로 대신 엔터를 쳐줘라?
 			// redirect 하면 controller에게 값을 넘기기가 어려움
 			

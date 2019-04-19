@@ -106,7 +106,6 @@ form:form에서는 기본값이 POST
 
 <form:form  
 		modelAttribute="memberVO"
-		action="member/join"
 		autocomplete="off">
 
 	<fieldset>

@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 
+import com.biz.rent.model.BookVO;
 import com.biz.rent.model.UserVO;
 
 public interface UserDao {
@@ -29,5 +30,10 @@ public interface UserDao {
 	public int delete(@Param("user_seq") long id);
 	
 
+	
+	@Select("SELECT * FROM tbl_user "
+			+ " WHERE user_name like '%' || #{s_string} || '%' "
+			+ " OR user_phone like '%' || #{s_string} || '%' ")
+	public List<UserVO> getSearchList(@Param("s_string") String s_string);
 	
 }

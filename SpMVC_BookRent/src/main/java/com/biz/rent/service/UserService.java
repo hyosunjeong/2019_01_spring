@@ -12,34 +12,43 @@ import com.biz.rent.model.UserVO;
 public class UserService {
 
 	@Autowired
-	UserDao dao;
+	UserDao uDao;
 	
 	public List<UserVO> selectAll() {
 		
-		return dao.selectAll();
+		return uDao.selectAll();
 	}
 	
 	public UserVO findById(long user_seq) {
 		
-		return dao.findById(user_seq);
+		return uDao.findById(user_seq);
 	}
 	
 	public int insert(UserVO userVO) {
-		int ret = dao.insert(userVO);
+		int ret = uDao.insert(userVO);
 		
 		return ret;
 	}
 	
 	public int update(UserVO userVO) {
-		int ret = dao.insert(userVO);
+		int ret = uDao.insert(userVO);
 		
 		return ret;
 	}
 	
 	public int delete(long user_seq) {
-		int ret = dao.delete(user_seq);
+		int ret = uDao.delete(user_seq);
 		
 		return ret;
+	}
+
+	
+	/*
+	 * 회원정보 검색
+	 */
+	public List<UserVO> getSearchList(String s_string) {
+		
+		return uDao.getSearchList(s_string);
 	}
 
 }

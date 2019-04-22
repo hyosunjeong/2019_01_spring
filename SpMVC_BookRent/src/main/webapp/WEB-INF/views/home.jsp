@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<<c:set var="rootPath" value="${pageContext.request.contextPath}"/>
+<c:set var="rootPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +9,8 @@
 <meta charset="UTF-8">
 <title>책나라 도서관</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="${rootPath}/css/list.css?ver=1" rel="stylesheet">
 <style>
 	*{
 		box-sizing: border-box;
@@ -73,7 +75,7 @@
 		border: 1px solid red;
 		flex: 1 1 auto;
 		overflow: auto;
-		
+		padding: 10px;
 		margin: 16px 8px 16px 16px;
 	}
 </style>
@@ -101,16 +103,17 @@
 	<a href="#">책나라 도서관</a>
 	<a href="#">로그인</a>
 	<a href="${rootPath}/admin/">관리자</a>
+	<a href="${rootPath}/user/s_list/jeong">임시</a>
 </nav>
 <section id="main-container">
 	<article id="user" class="body-box"><p>회원정보
-		<%@ include file="/WEB-INF/views/body/user_body.jspf" %>
+		<%@ include file="/WEB-INF/views/rent_body/user/user_body.jspf" %>
 	</article>
 	<article id="rent" class="body-box"><p>대여정보
-		<%@ include file="/WEB-INF/views/body/rent_body.jspf" %>
+		<%@ include file="/WEB-INF/views/rent_body/rent/rent_body.jspf" %>
 	</article>
 	<article id="book" class="body-box"><p>도서정보
-		<%@ include file="/WEB-INF/views/body/book_body.jspf" %>
+		<%@ include file="/WEB-INF/views/rent_body/book/book_body.jspf" %>
 	</article>
 	
 

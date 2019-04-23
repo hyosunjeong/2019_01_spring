@@ -13,7 +13,7 @@ $(function(){
 		let title = $(this).text()
 		let price = $(this).attr("data-price")
 		
-		$("#rent_book_seq").val(iseq)
+		$("#rent_book_seq").val(seq)
 		$("#book_title").text(title)
 		$("#rent_book_price").val(price)
 	})
@@ -33,7 +33,7 @@ $(function(){
 		<c:otherwise>
 			<c:forEach var="book" items="${BOOKS}">
 				<tr>
-					<td class="b_select" data-seq="${book.book_seq}">${book.book_title}</td>
+					<td class="b_select b_title" data-seq="${book.book_seq}" data-price="${book.book_price}">${book.book_title}</td>
 					<td>${book.book_author}</td>
 					<td>${book.book_price}</td>
 					<td>

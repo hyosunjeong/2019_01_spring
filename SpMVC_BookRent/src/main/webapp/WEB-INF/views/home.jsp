@@ -10,7 +10,7 @@
 <title>책나라 도서관</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link href="${rootPath}/css/list.css?ver=1" rel="stylesheet">
+<link href="${rootPath}/css/list.css?ver=2" rel="stylesheet">
 <style>
 	*{
 		box-sizing: border-box;
@@ -77,6 +77,13 @@
 		overflow: auto;
 		padding: 10px;
 		margin: 16px 8px 16px 16px;
+	}
+	
+	.b_title{
+		white-space: nowrap;
+		width : 200px;
+		overflow : hidden;
+		text-overflow: ellipsis;
 	}
 </style>
 <script>

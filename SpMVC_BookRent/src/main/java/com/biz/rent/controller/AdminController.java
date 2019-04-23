@@ -59,6 +59,9 @@ public class AdminController {
 	@ModelAttribute("bookVO")
 	public BookVO newBook() {
 		BookVO vo = new BookVO();
+		
+		vo.setBook_rent_yn("Y");
+		
 		return vo;
 	}
 	
@@ -70,10 +73,10 @@ public class AdminController {
 	@RequestMapping(value="/user",method=RequestMethod.GET)
 	public String user(@ModelAttribute("userVO") UserVO userVO, Model model) {
 		
-		List<UserVO> userlist = uService.selectAll();
+		List<UserVO> userList = uService.selectAll();
 		
 		model.addAttribute("userVO", userVO);
-		model.addAttribute("LIST",userlist);
+		model.addAttribute("LIST",userList);
 		model.addAttribute("BODY","USER_LIST");
 		
 		return "admin_home";
@@ -106,7 +109,7 @@ public class AdminController {
 	@RequestMapping(value="/user/update",method=RequestMethod.GET)
 	public String user_update(@ModelAttribute("userVO") UserVO userVO, Model model) {
 		
-		List<UserVO> userlist = uService.selectAll();
+		List<UserVO> userList = uService.selectAll();
 		
 		//1번 방법
 		long user_seq = userVO.getUser_seq();
@@ -116,7 +119,7 @@ public class AdminController {
 		userVO = uService.findById(userVO.getUser_seq());
 		
 		model.addAttribute("userVO", userVO);
-		model.addAttribute("LIST",userlist);
+		model.addAttribute("LIST",userList);
 		model.addAttribute("BODY","USER_LIST");
 		
 		return "admin_home";

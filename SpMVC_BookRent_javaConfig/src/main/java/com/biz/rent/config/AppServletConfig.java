@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages= {"com.biz.rent.controller"})
+@ComponentScan(basePackages= {"com.biz.rent.controller","com.biz.rent.service"})
 public class AppServletConfig implements WebMvcConfigurer{
 	
 	@Override

@@ -19,6 +19,7 @@ $(function(){
 		
 		if(confirm(id + "회원을 삭제할까요?")){
 			location.replace("${rootPath}/admin/user/delete?id="+id)
+			return false;
 		}
 	})
 	

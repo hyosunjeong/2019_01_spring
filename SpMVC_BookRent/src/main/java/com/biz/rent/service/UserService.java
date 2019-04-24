@@ -31,7 +31,7 @@ public class UserService {
 	}
 	
 	public int update(UserVO userVO) {
-		int ret = uDao.insert(userVO);
+		int ret = uDao.update(userVO);
 		
 		return ret;
 	}
